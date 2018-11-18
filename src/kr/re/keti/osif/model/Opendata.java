@@ -1,4 +1,4 @@
-package kr.re.keti.ciot.databus.model;
+package kr.re.keti.osif.model;
 
 import java.io.IOException;
 import java.util.Map;
@@ -12,10 +12,10 @@ public class Opendata implements DataSerializable {
 
 	protected String _name;
 	protected String _description;
-	protected JsonObject _template;
+	protected String _template;
 	
 	
-	public Opendata(String _name, String _description, JsonObject _template) {
+	public Opendata(String _name, String _description, String _template) {
 		super();
 		this._name = _name;
 		this._description = _description;
@@ -57,7 +57,7 @@ public class Opendata implements DataSerializable {
 	/**
 	 * @return the _template
 	 */
-	public JsonObject get_template() {
+	public String get_template() {
 		return _template;
 	}
 
@@ -81,7 +81,7 @@ public class Opendata implements DataSerializable {
 	/**
 	 * @param _template the _template to set
 	 */
-	public void set_template(JsonObject _template) {
+	public void set_template(String _template) {
 		this._template = _template;
 	}
 
@@ -93,7 +93,7 @@ public class Opendata implements DataSerializable {
 				
 		String name = jsonObject.get("name").asString();
 		String description = jsonObject.get("description").asString();
-		JsonObject template = jsonObject.get("template").asObject();	
+		String template = jsonObject.get("template").asString();	
 		
 		return new Opendata(name, description, template);
 	}
@@ -102,14 +102,14 @@ public class Opendata implements DataSerializable {
 	public void readData(ObjectDataInput arg0) throws IOException {
 		this._name = arg0.readUTF();
 		this._description = arg0.readUTF();
-		this._template = arg0.readObject(JsonObject.class);
+		this._template = arg0.readUTF();
 	}
 
 
 	public void writeData(ObjectDataOutput arg0) throws IOException {
 		arg0.writeUTF(this._name);
 		arg0.writeUTF(this._description);
-		arg0.writeObject(this._template);
+		arg0.writeUTF(this._template);
 	}
 	
 	
